@@ -122,7 +122,30 @@ func (pc *partController) PostYear(w http.ResponseWriter, r *http.Request) {
             log.Println(err)
             w.WriteHeader(500)
         } else {
-            
+            years, err := model.FindYearsForModel(modelId)
+            if err != nil {
+                log.Println(err)
+                w.WriteHeader(500)
+            } else {
+                employeeNumber, err := strconv.Atoi(r.FormValue("employeeNumber"))
+                if err != nil {
+                    log.Println(err)
+                    w.WriteHeader(500)
+                } else {
+                    employee, _ := model.GetEmployee(employeeNumber)
+                    autoMake, _ := model.GetMake(makeId)
+                    autoModel, _ := model.GetModel(modelId) 
+                    
+                    
+                    vmodel := vm.PartYear{Base: vm.Base{Employee: employee},
+                        Model: autoModel,
+                        Make: autoMake,
+                         Years: years,
+                }
+                    pc.autoYearTemplate.Execute(w, vmodel)
+                    
+                }
+            }
         }
     }
 }
