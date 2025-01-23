@@ -90,7 +90,23 @@ func (pc *partController) AutocompleteModel(w http.ResponseWriter, r *http.Reque
         w.WriteHeader(500)
         log.Println("Failed to convert make to an integer")
     } else {
-        models, err := model.
+        models, err := model.SearchForModels(makeId, term)
+        if err != nil {
+            w.WriteHeader(500)
+        } else {
+            vmodel := make([]vm.Autocomplete, len(models))
+            for idx, m := range models {
+                vmodel[idx] = vm.Autocomplete{
+                    Label: m.Name,
+                    Value: m.Name,
+                    Data: strconv.Itoa(m.Id),
+                }
+            }
+
+            w.Header().Add("Content=Type", "application/json")
+            resp, _ := json.Marshal(vmodel)
+            w.Write(resp)
+        }
     }
 }
 

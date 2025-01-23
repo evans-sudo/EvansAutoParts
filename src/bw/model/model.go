@@ -28,3 +28,21 @@ func SearchForModels(makeId int, term string) ([]Model, error) {
 
 	return result, err 
 }
+
+
+
+func GetModel(modelId int) (*Model, error) {
+	result := Model{}
+
+	row := db.QueryRow("SELECT id, name FROM model m WHERE id = $1", modelId)
+	err := row.Scan(&result.Id, &result.Name)
+
+	if err != nil {
+		log.Println(err)
+	}
+
+	return &result, err 
+}
+
+
+func FindYearsForModel(modelId int) ([]Year, error)
