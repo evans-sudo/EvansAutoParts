@@ -111,3 +111,20 @@ func (pc *partController) AutocompleteModel(w http.ResponseWriter, r *http.Reque
 }
 
 
+func (pc *partController) PostYear(w http.ResponseWriter, r *http.Request) {
+    makeId, err := strconv.Atoi(r.FormValue("make")) 
+    if err != nil {
+        log.Println(err)
+        w.WriteHeader(500)
+    } else {
+        modelId, err := strconv.Atoi(r.FormValue("model"))
+        if err != nil {
+            log.Println(err)
+            w.WriteHeader(500)
+        } else {
+            
+        }
+    }
+}
+
+

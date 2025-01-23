@@ -45,4 +45,33 @@ func GetModel(modelId int) (*Model, error) {
 }
 
 
-func FindYearsForModel(modelId int) ([]Year, error)
+func FindYearsForModel(modelId int) ([]Year, error) {
+	result := []Year{}
+	rows, err := db.Query(
+		"SELECT y.id, y.year "+
+		"FROM year y "+
+		"JOIN model_year my "+
+		"  ON my.year_id = y.id "+
+		"JOIN model m "+
+		"  ON m.id = my.model_id "+
+		"WHERE m.id = $1 "+
+		"ORDER BY y.year", modelId)
+
+
+	if err != nil {
+		log.Println(err)
+	} else {
+		defer rows.Close()
+		for rows.Next() {
+			year := Year{}
+			err := rows.Scan(&year.Id, &year.Value)
+			if err != nil {
+				log.Println(err)
+			} else {
+				result = append(result, year)
+			}
+		}
+	}
+
+	return result, err 
+}
