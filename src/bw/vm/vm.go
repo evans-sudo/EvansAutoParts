@@ -24,6 +24,14 @@ type PartYear struct {
 	Years []model.Year
 }
 
+type PartEngine struct {
+	Base
+	Make *model.Make
+	Model *model.Model
+	Year *model.Year
+	Engines []model.Engine
+}
+
 
 type Autocomplete struct {
 	Label string `json:"label"`

@@ -16,6 +16,8 @@ type partController struct {
     automakeTemplate *template.Template
     autoModelTemplate *template.Template
     autoYearTemplate *template.Template
+    autoEngineTemplate *template.Template
+    searchResultTemplate *template.Template
     searchResultPartialTemplate *template.Template
     partTemplate *template.Template
 }
@@ -150,4 +152,90 @@ func (pc *partController) PostYear(w http.ResponseWriter, r *http.Request) {
     }
 }
 
+
+func (pc *partController) PostEngine(w http.ResponseWriter, r *http.Request) {
+    makeId, err := strconv.Atoi(r.FormValue("make"))
+
+    if err != nil {
+        log.Println(err)
+        w.WriteHeader(500)
+    } else {
+        modelId, err := strconv.Atoi(r.FormValue("model"))
+
+        if err != nil {
+            log.Println(err)
+            w.WriteHeader(500)
+        } else {
+            yearId, err := strconv.Atoi(r.FormValue("year"))
+
+
+            if err != nil {
+                log.Println(err)
+                w.WriteHeader(500)
+            } else {
+                engines, err := model.SearchForEngines(modelId, yearId)
+                if err != nil {
+                    log.Println(err)
+                    w.WriteHeader(500)
+                } else {
+                    employeeNumber, err := strconv.Atoi(r.FormValue("employeeNumber"))
+                    if err != nil {
+                        log.Println(err)
+                        w.WriteHeader(500)
+                    } else {
+                        employee, _ := model.GetEmployee(employeeNumber)
+                        autoModel, _ := model.GetModel(modelId)
+                        autoMake, _ := model.GetMake(makeId)
+                        autoYear, _ := model.GetYear(yearId)
+
+                        vmodel := vm.PartEngine{Base: vm.Base{Employee: employee},
+                             Make: autoMake,
+                             Model: autoModel,
+                             Year: autoYear,
+                             Engines: engines,                
+
+                    }
+                    pc.autoEngineTemplate.Execute(w, vmodel)
+                }
+            }
+        }
+
+        }
+    }
+
+}
+
+
+func (pc *partController) PostSearch(w http.ResponseWriter, r *http.Request) {
+    makeId, err := strconv.Atoi(r.FormValue("make"))
+
+
+    if err != nil {
+        log.Println(err)
+        w.WriteHeader(500)
+    } else {
+        modelId, err := strconv.Atoi(r.FormValue("model"))
+
+        if err != nil {
+            log.Println(err)
+            w.WriteHeader(500)
+        } else {
+            yearId, err := strconv.Atoi(r.FormValue("year"))
+
+            if err != nil {
+                log.Println(err)
+                w.WriteHeader(500)
+            } else {
+                engineId, err := strconv.Atoi(r.FormValue("engine"))
+
+                if err != nil {
+                    log.Println(err)
+                    w.WriteHeader(500)
+                } else {
+                    categories, err := model.g
+                }
+            }
+        }
+    }
+}
 
