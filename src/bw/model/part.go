@@ -150,3 +150,22 @@ func SearchForParts(modelId, yearId, engineId, typeId int) ([]*Part, error) {
 }
 
 
+
+func GetPart(partId int) (*Part, error) {
+	result := Part{StoreInventory: &StoreInventory{}}
+
+	row := db.QueryRow(
+		"SELECT p.id, p.part_number, p.price, p.supplier, "+
+		"  p.quality, p.image_name, t.name, coalesce(si.location, ''), coalesce(si.quantity, 0) "+
+		"FROM part p "+
+		"LEFT JOIN store_inventory si "+
+		"  ON si.part_id = p.id "+
+		"JOIN part_type t "+
+		"  ON t.id = p.type_id "+
+		"WHERE p.id = $1 ", partId)
+
+	err := row.Scan(&result.Id, &result.PartNumber, &result.Price, &result.Supplier,
+		&result.Quality, &result.ImageName, &result.TypeName, &result.StoreInventory.Location, &result.StoreInventory.Quantity)
+
+	return &result, err 
+}

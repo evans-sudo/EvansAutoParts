@@ -19,5 +19,14 @@ func SearchForEngines(modeId, yearId int) ([]Engine, error) {
 
 	if err != nil {
 		log.Println(err)
+	} else {
+		defer rows.Close()
+
+		for rows.Next() {
+			engine := Engine{}
+			rows.Scan(&engine.Id, &engine.Description)
+			result = append(result, engine)
+		}
 	}
+	return result, err
 }
