@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{template "_head.html"}}
+  </head>
+  <body class="container login">
+    {{template "_header.html" .}}
+    <div class="row create-employee">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+            <h3 class="text-center">New Employee Setup</h3>
+          </div>
+        </div>
+        <form action="" method="POST" class="form-horizontal">
+          <h4><b>Personal Information</b></h4>
+          <div class="form-group">
+            <label for="givenName" class="col-md-2 text-right">Given Name</label>
+            <div class="col-md-4">
+              <input type="text" class="form-control" name="givenName" id="givenName" placeholder="Given Name" value="{{.NewEmployee.GivenName}}"/>
+            </div>
+            <label for="surname" class="col-md-2 text-right">Surname</label>
+            <div class="col-md-4">
+              <input type="text" class="form-control" name="surname" id="surname" placeholder="Surname" value="{{.NewEmployee.Surname}}"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="streetAddress" class="text-right col-md-2">Street Address</label>
+            <div class="col-md-10">
+              <input type="text" placeholder="Street Address" name="address" id="streetAddress" class="form-control" value="{{.NewEmployee.Address}}">
+            </div>
+            <label for="city" class="col-md-2 text-right">City</label>
+            <div class="col-md-3">
+              <input type="text" placeholder="City" class="form-control" name="city" id="city" value="{{.NewEmployee.City}}">
+            </div>
+            <label for="state" class="col-md-1 text-right">State</label>
+            <div class="col-md-2">
+              <select name="state" id="state" class="form-control" value="{{.NewEmployee.State}}">
+                <option value="ohio" {{if eq "Ohio" .Employee.State }}selected{{end}}>Ohio</option>
+                <option value="michigan" {{if eq "Michigan" .Employee.State }}selected{{end}}>Michigan</option>
+              </select>
+            </div>
+            <label for="postalCode" class="col-md-2 text-right">Postal Code</label>
+            <div class="col-md-2">
+              <input type="text" class="form-control" name="postalCode" id="postalCode" placeholder="Postal Code" value="{{.NewEmployee.PostalCode}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <h4><b>Employment Information</b></h4>
+            <label for="role" class="col-md-2 text-right">Role</label>
+            <div class="col-md-3">
+              {{$roleId := .NewEmployee.Role.Id}}
+              <select name="role" id="role" class="form-control">
+                {{range .Roles}}
+                  <option value="{{.Id}}" {{if eq .Id $roleId}}selected{{end}}>{{.Name}}</option>
+                {{end}}
+              </select>
+            </div>
+            <label for="hireDate" class="col-md-3 text-right">Hire Date</label>
+            <div class="col-md-3">
+              <input type="date" placeholder="Hire Date" id="hireDate" name="hireDate" class="form-control" value="{{.NewEmployee.HireDate}}">
+            </div>
+            <label for="payRate" class="col-md-2 text-right">Pay Rate</label>
+            <div class="col-md-2">
+              <input type="number" min="0" step="0.01" id="payRate" name="payRate" class="form-control" value="{{.NewEmployee.PayRate}}">
+            </div>
+            <div class="col-md-8">
+              / hour
+            </div>
+          </div>
+          <div class="col-md-12 text-right">
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </div>
+          <input type="hidden" name="employeeNumber" value="{{.NewEmployee.EmployeeNumber}}">
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

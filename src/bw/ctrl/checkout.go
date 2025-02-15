@@ -7,7 +7,7 @@ import (
 
 
 type checkoutController struct {
-	template * template.Template
+	template *template.Template
 }
 
 

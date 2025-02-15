@@ -8,6 +8,12 @@ type Base struct {
 }
 
 
+type Part struct {
+	Base
+	Part *model.Part
+}
+
+
 type PartMake struct {
 	Base
 }
@@ -50,4 +56,18 @@ type AdminCreateEmployee struct {
 type AdminViewEmployee struct {
 	Base
 	ViewedEmployee *model.Employee
+}
+
+type SearchResult struct {
+	Base
+	Make *model.Make
+	Model *model.Model
+	Year *model.Year
+	Engine *model.Engine
+	CategoriesJson string 
+}
+
+type PartsPartial struct {
+	Base
+	Parts []*model.Part
 }

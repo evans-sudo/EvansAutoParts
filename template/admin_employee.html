@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{template "_head.html"}}
+  </head>
+  <body class="container login">
+    {{template "_header.html" .}}
+    <div class="row create-employee">
+      <div class="text-success text-center">Account successfully created for employee {{.ViewedEmployee.EmployeeNumber}}</div>
+      <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="text-center">Employee Information</h3>
+        </div>
+      </div>
+        <h4><b>Personal Information</b></h4>
+        <div class="form-group row">
+          <div class="col-md-2 text-right"><b>Given Name</b></div>
+          <div class="col-md-2">
+            {{.ViewedEmployee.GivenName}}
+          </div>
+          <div class="col-md-2 text-right"><b>Surname</b></div>
+          <div class="col-md-6">
+            {{.ViewedEmployee.Surname}}
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="text-right col-md-2"><b>Street Address</b></div>
+          <div class="col-md-10">
+            {{.ViewedEmployee.Address}}
+          </div>
+          <div class="col-md-2 text-right"><b>City</b></div>
+          <div class="col-md-3 title-case">
+            {{.ViewedEmployee.City}}
+          </div>
+          <div class="col-md-1 text-right"><b>State</b></div>
+          <div class="col-md-2 title-case">
+            {{.ViewedEmployee.State}}
+          </div>
+          <div class="col-md-2 text-right"><b>Postal Code</b></div>
+          <div class="col-md-2">
+            {{.ViewedEmployee.PostalCode}}
+          </div>
+        </div>
+        <div class="form-group row">
+          <h4><b>Employment Information</b></h4>
+          <div class="col-md-2 text-right"><b>Role</b></div>
+          <div class="col-md-3">
+            {{.ViewedEmployee.Role.Name}}
+          </div>
+          <div class="col-md-3 text-right"><b>Hire Date</b></div>
+          <div class="col-md-3">
+            {{"Jan 02, 2006" | .ViewedEmployee.HireDate.Format}}
+          </div>
+          <div class="col-md-2 text-right"><b>Pay Rate</b></div>
+          <div class="col-md-10">
+            ${{.ViewedEmployee.PayRate}} / hour
+          </div>
+          <div class="col-md-2 text-right"><b>Employee Id</b></div>
+          <div class="col-md-10">{{.ViewedEmployee.EmployeeNumber}}</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{template "_head.html"}}
+  </head>
+  <body class="container">
+    {{template "_header.html" .}}
+    <div class="row parts">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-6 breadcrumbs">
+            <a href="/parts/makes">{{.Make.Name}}</a>
+            <span class="spacer">|</span>
+            <a href="/parts/models">{{.Model.Name}}</a>
+            <span class="spacer">|</span>
+            <a href="/parts/years">{{.Year.Value}}</a>
+          </div>
+          <div class="col-md-6">
+            {{template "_search.html"}}
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <form action="/parts/searchresults" method="POST"
+            class="col-md-6 col-md-offset-3 text-center">
+            Engine
+            <select name="engine" id="engine">
+              {{range .Engines}}
+                <option value="{{.Id}}">{{.Description}}</option>
+              {{end}}
+            </select>
+            <input type="hidden" name="make" id="make" value="{{.Make.Id}}">
+            <input type="hidden" name="model" id="model" value="{{.Model.Id}}">
+            <input type="hidden" name="year" id="year" value="{{.Year.Id}}">
+            <input type="hidden" name="employeeNumber" value="{{.Employee.EmployeeNumber}}">
+            <button type="submit" class="btn btn-primary">Next</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{template "_head.html"}}
+  </head>
+  <body class="container">
+    {{template "_header.html" .}}
+    <div class="row parts">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="row result">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4"><b>{{.Part.TypeName}}</b></div>
+                <div class="col-md-4">PN: {{.Part.PartNumber}}</div>
+                <div class="col-md-4 text-right">${{.Part.Price}}</div>
+              </div>
+              <div class="row">
+                <div class="col-md-11 col-md-offset-1 title-case">
+                  Quality: {{.Part.Quality}}
+                </div>
+                <div class="col-md-11 col-md-offset-1">
+                  Supplier: {{.Part.Supplier}}
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <table class="table">
+                  <tr>
+                    <th>Location</th>
+                    <th class="text-center">Quantity</th>
+                    <th>Notes</th>
+                  </tr>
+                  <tr>
+                    <td>Store</td>
+                    <td class="text-center">0</td>
+                    <td>Location: {{.Part.StoreInventory.Location}}</td>
+                  </tr>
+                  <tr>
+                    <td>Warehouse</td>
+                    <td class="text-center">14</td>
+                    <td></td>
+                  </tr>
+                </table>
+              </div>
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <b>Reserve Parts</b>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3 text-right">
+                  Source
+                </div>
+                <div class="col-md-6 text-center">
+                  <select name="" id="" class="form-control">
+                    <option value="warehouse">Warehouse</option>
+                    <option value="store">Store</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3 text-right">
+                  Quantity
+                </div>
+                <div class="col-md-6 text-center">
+                  <input type="number" class="form-control" min="0">
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-10 col-md-offset-1 text-center">
+                  <button class="btn btn-primary">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+                <img src="/res/img/products/{{.Part.ImageName}}" alt="" class="img-responsive">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

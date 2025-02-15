@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -39,23 +40,43 @@ func buildTemplateCache() (*template.Template, bool) {
 	needUpdate := false
 
 
-	f, _ := os.Open("templates")
+	f, err := os.Open("template")
+	if err != nil {
+		log.Fatalf("Failed to open templates directory: %v", err)
+	}
+	defer f.Close()
 
 	fileInfos, _ := f.Readdir(-1)
-	fileNames := make([]string, len(fileInfos))
-	for idx, fi := range fileInfos {
-		if fi.ModTime().After(lastModTime) {
-			lastModTime = fi.ModTime()
-			needUpdate = true
-		}
-		fileNames[idx] = "templates/" + fi.Name()
+	if err != nil {
+		log.Fatalf("Failed to read templates directory: %v", err)
 	}
 
-	var tc *template.Template
+	fileNames := []string{}
+	for _, fi := range fileInfos {
+		if fi.Mode().IsRegular() && strings.HasSuffix(fi.Name(), ".html") { // Ensure only HTML files
+			filePath := "template/" + fi.Name()
+			fileNames = append(fileNames, filePath)
+
+			if fi.ModTime().After(lastModTime) {
+				lastModTime = fi.ModTime()
+				needUpdate = true
+			}
+		}
+	}
+
+	if len(fileNames) == 0 {
+		log.Fatal("No templates found in the templates directory")
+	}
+
+	// Always parse templates initially
+	tc, err := template.ParseFiles(fileNames...)
+	if err != nil {
+		log.Fatalf("Failed to parse templates: %v", err)
+	}
+
 	if needUpdate {
 		log.Print("Template change detected, updating...")
-		tc = template.Must(template.ParseFiles(fileNames...))
-		log.Println("template update complete")
+		log.Println("Template update complete")
 	}
 
 	return tc, needUpdate

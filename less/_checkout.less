@@ -1,0 +1,30 @@
+.checkout {
+    .table-header {
+      text-transform: uppercase;
+      background-color: #ccc;
+      font-size: 1.1em;
+      font-weight: bold;
+      padding: 0.5em 0;
+    }
+  
+    .table-row {
+  
+      padding: 0.2em 0;
+  
+      &:nth-child(2n+1) {
+        background-color: #ddd;
+      }
+  
+      &:last-of-type {
+        margin-bottom: 1em;
+      }
+  
+      &:hover {
+        background-color: lighten(@brand-primary, 70%);
+      }
+  
+      button {
+        font-size: 0.7em;
+      }
+    }
+  }

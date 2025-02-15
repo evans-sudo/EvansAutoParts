@@ -14,7 +14,6 @@ var (
 
 func Setup(tc *template.Template) {
 	SetTemplateCache(tc)
-	createResourceServer()
 
 	http.HandleFunc("/", login.GetLogin)
 	http.HandleFunc("/parts/makes", parts.GetMake)
@@ -35,8 +34,9 @@ func Setup(tc *template.Template) {
 }
 
 
-func createResourceServer(tc *template.Template) {
-
+func createResourceServer() {
+	http.Handle("/res/lib/", http.StripPrefix("/res/lib", http.FileServer(http.Dir("node_modules"))))
+	http.Handle("/res/", http.StripPrefix("/res", http.FileServer(http.Dir("res"))))
 }
 
 

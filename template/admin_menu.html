@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{template "_head.html"}}
+  </head>
+  <body class="container admin-menu">
+    {{template "_header.html" .}}
+        <div class="row">
+          <div class="col-md-3 col-md-offset-2">
+            <button class="btn btn-primary form-control">Run Start of Day Tasks</button>
+          </div>
+          <div class="col-md-3">
+            <button onclick="location='/admin/employees/new?employeeNumber={{urlquery .Employee.EmployeeNumber}}'"
+              class="btn btn-primary form-control">Create New Employee</a>
+          </div>
+          <div class="col-md-3">
+            <button class="btn btn-primary form-control">Inventory Management</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 col-md-offset-2">
+            <button class="btn btn-primary form-control">Run End of Day Tasks</button>
+          </div>
+          <div class="col-md-3">
+            <button class="btn btn-primary form-control">Edit Employee Record</button>
+          </div>
+          <div class="col-md-3">
+            <button class="btn btn-primary form-control">View Corporate Communications</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 col-md-offset-5">
+            <button class="btn btn-primary form-control">Manage Time and Attendance</button>
+          </div>
+        </div>
+      </div>
+  </body>
+</html>

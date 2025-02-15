@@ -1,0 +1,55 @@
+{{$employeeNumber := .Employee.EmployeeNumber}}
+{{range .Parts}}
+  <div class="row result">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-4"><b>{{.TypeName}}</b></div>
+        <div class="col-md-4">PN: {{.PartNumber}}</div>
+        <div class="col-md-4 text-right">${{.Price}}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-11 col-md-offset-1 title-case">
+          Quality: {{.Quality}}
+        </div>
+        <div class="col-md-11 col-md-offset-1">
+          Supplier: {{.Supplier}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <img src="/res/img/products/{{.ImageName}}" alt="{{.ImageName}}" class="img-responsive">
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <h4>Inventory</h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              On Hand
+            </div>
+            <div class="col-md-6">
+              {{.StoreInventory.Quantity}}
+            </div>
+          </div>
+          <div class="row" style="margin-top:0.5em;">
+            <div class="col-md-6">
+              Warehouse
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-primary btn-sm">Check</button>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+              <a class="btn btn-primary" href="/parts/detail?part={{.Id}}&employeeNumber={{$employeeNumber}}">Add to Cart</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+{{end}}

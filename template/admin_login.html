@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{template "_head.html"}}
+  </head>
+  <body class="container login">
+    {{template "_header.html" .}}
+    <div class="underlay"></div>
+    <div class="row login-panel">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            Enter Password to Continue
+          </div>
+          <form method="POST" action="" class="panel-body">
+            <div class="row">
+              <div class="col-md-5 text-right">
+                Employee Number
+              </div>
+              <div class="col-md-6">
+                <input type="text" name="employeeNumber">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5 text-right">
+                Password
+              </div>
+              <div class="col-md-6">
+                <input type="password" name="password">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-6 col-md-offset-3 text-center">
+                <button type="submit" class="btn btn-primary form-control">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

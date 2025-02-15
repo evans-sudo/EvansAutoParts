@@ -13,7 +13,7 @@ import (
 
 
 type partController struct { 
-    automakeTemplate *template.Template
+    autoMakeTemplate *template.Template
     autoModelTemplate *template.Template
     autoYearTemplate *template.Template
     autoEngineTemplate *template.Template
@@ -31,10 +31,10 @@ func (pc *partController) GetMake(w http.ResponseWriter, r *http.Request) {
         employee, err := model.GetEmployee(employeeNumber)
         if err != nil {
             log.Print(err)
-            http.Redirect(w,r, "/", 307)
+            http.Redirect(w, r, "/", 307 )
         } else {
             vmodel := vm.PartMake{Base: vm.Base{Employee: employee}}
-            pc.automakeTemplate.Execute(w, vmodel)
+            pc.autoMakeTemplate.Execute(w, vmodel)
         }
     }
 }
@@ -232,9 +232,102 @@ func (pc *partController) PostSearch(w http.ResponseWriter, r *http.Request) {
                     log.Println(err)
                     w.WriteHeader(500)
                 } else {
-                    categories, err := model.g
+                    categories, err := model.GetPartCategories()
+
+                    if err != nil {
+                        log.Println(err)
+                        w.WriteHeader(500)
+                    } else {
+                        employeeNumber, err := strconv.Atoi(r.FormValue("employeeNumber"))
+                        if err != nil {
+                            log.Panicln(err)
+                            w.WriteHeader(500)
+                        } else {
+                            employee, _ := model.GetEmployee(employeeNumber)
+                            automake, _ := model.GetMake(makeId)
+                            autoModel, _ := model.GetModel(modelId)
+                            autoYear, _ := model.GetYear(yearId)
+                            autoEngine, _ := model.GetEngine(engineId)
+
+                            categoriesJson, _ := json.Marshal(categories)
+
+                            vmodel := vm.SearchResult{Base: vm.Base{Employee: employee},
+                            Make: automake,
+                            Model: autoModel,
+                            Year: autoYear,
+                            Engine: autoEngine,
+                            CategoriesJson: string(categoriesJson),
+                        }
+
+                            pc.searchResultTemplate.Execute(w, vmodel)
+                        }
+                    }
                 }
             }
+        }
+    }
+}
+
+
+func (pc *partController) GetPartSearchPartial(w http.ResponseWriter, r *http.Request) {
+    modelId, err := strconv.Atoi(r.URL.Query().Get("model"))
+    if err != nil {
+        log.Print(err)
+        w.WriteHeader(500)
+    } else {
+        yearId, err := strconv.Atoi(r.URL.Query().Get("year"))
+        if err != nil {
+            log.Print(err)
+            w.WriteHeader(500)
+        } else {
+            engineId, err := strconv.Atoi(r.URL.Query().Get("engine"))
+            if err != nil {
+                log.Print(err)
+                w.WriteHeader(500)
+            } else {
+                typeId, err := strconv.Atoi(r.URL.Query().Get("type"))
+                if err != nil {
+                    log.Print(err)
+                    w.WriteHeader(500)
+                } else {
+                    parts, err := model.SearchForParts(modelId, yearId, engineId, typeId)
+                    if err != nil {
+                        log.Print(err)
+                        w.WriteHeader(500)
+                    }  else {
+                        employeeNumber, _ := strconv.Atoi(r.URL.Query().Get("employeeNumber"))
+                        employee, _  := model.GetEmployee(employeeNumber)
+
+
+                        vmodel := vm.PartsPartial{Base: vm.Base{Employee: employee}, Parts: parts}
+                        pc.searchResultPartialTemplate.Execute(w, vmodel)
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+
+func (pc *partController) GetPart(w http.ResponseWriter, r *http.Request) {
+    partId, err := strconv.Atoi(r.URL.Query().Get("part"))
+    if err != nil {
+        log.Println(err)
+        w.WriteHeader(500)
+    } else {
+        employeeNumber, _ := strconv.Atoi(r.FormValue("employeeNumber"))
+        employee, _ := model.GetEmployee(employeeNumber)
+
+
+        part, err := model.GetPart(partId)
+        if err != nil {
+            log.Println(err)
+            w.WriteHeader(500)
+        } else {
+            vmodel := vm.Part{Base: vm.Base{Employee: employee}, Part: part}
+
+            pc.partTemplate.Execute(w, vmodel)
         }
     }
 }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{template "_head.html"}}
+  </head>
+  <body class="container">
+    {{template "_header.html" .}}
+    <div class="row parts">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-6 breadcrumbs">
+            &nbsp;
+          </div>
+          <div class="col-md-6">
+            {{template "_search.html"}}
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <form action="/parts/models" method="POST"
+            class="col-md-6 col-md-offset-3 text-center">
+            Make
+            <input class="autocomplete"/>
+            <input type="hidden" name="make" id="make">
+            <input type="hidden" name="employeeNumber" value="{{.Employee.EmployeeNumber}}">
+            <button type="submit" class="btn btn-primary">Next</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(function() {
+        $(".autocomplete").autocomplete({
+          source: "/api/makes",
+          select: function(e, ui) {
+            console.log(arguments);
+            $("#make").val(ui.item.data);
+            $(this).val(ui.item.label);
+            return false;
+          }
+        });
+      })
+    </script>
+  </body>
+</html>

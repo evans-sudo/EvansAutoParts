@@ -15,7 +15,6 @@ type Role struct {
 }
 
 
-
 type Employee struct {
 	Id             int
 	GivenName      string

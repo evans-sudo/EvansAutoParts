@@ -30,3 +30,15 @@ func SearchForEngines(modeId, yearId int) ([]Engine, error) {
 	}
 	return result, err
 }
+
+
+func GetEngine(engineId int) (*Engine, error) {
+	result  := Engine{}
+
+	row := db.QueryRow("SELECT e.id, e.description FROM engine e WHERE e.id = $1", engineId)
+	err := row.Scan(&result.Id, &result.Description)
+
+	return &result, err 
+}
+
+

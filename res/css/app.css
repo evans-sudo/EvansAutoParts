@@ -1,0 +1,133 @@
+@import url(http://fonts.googleapis.com/css?family=Basic);
+header {
+  margin-bottom: 1em;
+}
+header .logo {
+  height: 100px;
+  cursor: pointer;
+  position: relative;
+  top: -1.2em;
+}
+header h1.app-title {
+  font-size: 2em;
+}
+header .help {
+  position: relative;
+  top: 0.5em;
+  cursor: pointer;
+}
+header .menu a {
+  text-transform: uppercase;
+}
+header .menu .spacer:after {
+  content: "|";
+  padding: 0 1em;
+}
+.login .underlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(100, 100, 100, 0.6);
+  z-index: 1;
+}
+.login .login-panel {
+  position: relative;
+  z-index: 2;
+  top: 3em;
+}
+.login .login-panel .btn {
+  width: 100%;
+}
+.parts select {
+  font-size: 1.5em;
+}
+.parts select.categories {
+  font-size: 1.2em;
+}
+.parts select option {
+  font-size: 0.7em;
+}
+.parts .btn {
+  position: relative;
+  top: -5px;
+}
+.parts .breadcrumbs a {
+  text-transform: uppercase;
+}
+.parts .breadcrumbs .spacer {
+  padding: 0 0.5em;
+}
+.parts.content {
+  height: calc(100% - 8em);
+}
+.parts.content .content {
+  height: calc(100% - 6em);
+}
+.parts h4 {
+  margin-top: 0;
+}
+.parts hr {
+  margin: 14px 0;
+}
+.parts #resultContainer {
+  padding: 0 1em;
+}
+.checkout .table-header {
+  text-transform: uppercase;
+  background-color: #ccc;
+  font-size: 1.1em;
+  font-weight: bold;
+  padding: 0.5em 0;
+}
+.checkout .table-row {
+  padding: 0.2em 0;
+}
+.checkout .table-row:nth-child(2n+1) {
+  background-color: #ddd;
+}
+.checkout .table-row:last-of-type {
+  margin-bottom: 1em;
+}
+.checkout .table-row:hover {
+  background-color: #ffdfdf;
+}
+.checkout .table-row button {
+  font-size: 0.7em;
+}
+.admin-menu button {
+  margin: 1em 0;
+  white-space: normal;
+  word-wrap: break-word;
+  height: 100px;
+}
+.create-employee h3 {
+  margin: 0;
+}
+.create-employee .form-group {
+  margin-top: 0.7em;
+}
+.create-employee input {
+  margin-bottom: 0.3em;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  padding-top: 1.5em;
+}
+h1 {
+  font-family: 'Basic', sans-serif;
+}
+.full-height {
+  height: 100% !important;
+}
+.scroll {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.title-case {
+  text-transform: capitalize;
+}

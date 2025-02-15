@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{template "_head.html"}}
+  </head>
+  <body class="container">
+    {{template "_header.html"}}
+    <div class="row parts content">
+      <div class="col-md-12 full-height">
+        <div class="row">
+          <div class="col-md-6 breadcrumbs">
+            <a href="/parts/makes">{{.Make.Name}}</a>
+            <span class="spacer">|</span>
+            <a href="/parts/models">{{.Model.Name}}</a>
+            <span class="spacer">|</span>
+            <a href="/parts/years">{{.Year.Value}}</a>
+            <span class="spacer">|</span>
+            <a href="/parts/engines">{{.Engine.Description}}</a>
+          </div>
+          <div class="col-md-6">
+            {{template "_search.html"}}
+          </div>
+        </div>
+        <hr>
+        <div class="row content">
+          <div class="col-md-2 full-height">
+            <h4 class="text-center">System</h4>
+            <select id="category" class="form-control full-height categories" size="10"></select>
+          </div>
+          <div class="col-md-2 full-height">
+            <h4 class="text-center">Sub-system</h4>
+            <select id="subcategory" class="form-control full-height categories" size="10"></select>
+          </div>
+          <div class="col-md-2 full-height">
+            <h4 class="text-center">Component</h4>
+            <select id="type" class="form-control full-height categories" size="10"></select>
+          </div>
+          <div class="col-md-6 full-height scroll">
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <h4><u>Options</u></h4>
+              </div>
+            </div>
+            <div class="row results full-height" id="resultContainer"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <input type="hidden" id="model" value="{{.Model.Id}}">
+    <input type="hidden" id="year" value="{{.Year.Id}}">
+    <input type="hidden" id="engine" value="{{.Engine.Id}}">
+    <input type="hidden" id="employeeNumber" name="employeeNumber" value="{{.Employee.EmployeeNumber}}">
+    <script>window.categories = JSON.parse("{{.CategoriesJSON}}")</script>
+    <script src="/res/js/search_results.js" charset="utf-8"></script>
+  </body>
+</html>
