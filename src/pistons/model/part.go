@@ -48,7 +48,6 @@ func GetPartCategories() ([]*Category, error) {
 		"SELECT c.id, c.name " +
 			"FROM part_category c") 
 
-
 	if err != nil {
 		log.Println(err)
 	} else {

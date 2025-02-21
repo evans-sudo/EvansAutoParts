@@ -1,16 +1,10 @@
 package vm
 
-import "EvansAutoParts/src/bw/model"
+import "EvansAutoParts/src/pistons/model"
 
 
 type Base struct {
 	Employee *model.Employee
-}
-
-
-type Part struct {
-	Base
-	Part *model.Part
 }
 
 
@@ -39,12 +33,30 @@ type PartEngine struct {
 }
 
 
+type Part struct {
+	Base
+	Part *model.Part
+}
+
+type PartsPartial struct {
+	Base
+	Parts []*model.Part
+}
+
+type SearchResult struct {
+	Base
+	Make *model.Make
+	Model *model.Model
+	Year *model.Year
+	Engine *model.Engine
+	CategoriesJSON string 
+}
+
 type Autocomplete struct {
 	Label string `json:"label"`
 	Value string `json:"value"`
 	Data string `json:"data"`
 }
-
 
 
 type AdminCreateEmployee struct {
@@ -58,16 +70,10 @@ type AdminViewEmployee struct {
 	ViewedEmployee *model.Employee
 }
 
-type SearchResult struct {
+type Checkout struct {
 	Base
-	Make *model.Make
-	Model *model.Model
-	Year *model.Year
-	Engine *model.Engine
-	CategoriesJson string 
+	Cart *model.Cart
 }
 
-type PartsPartial struct {
-	Base
-	Parts []*model.Part
-}
+
+

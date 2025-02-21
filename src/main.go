@@ -1,7 +1,7 @@
 package main
 
 import (
-	"EvansAutoParts/src/bw/ctrl"
+	"EvansAutoParts/src/pistons/ctrl"
 	"fmt"
 	"html/template"
 	"log"
@@ -17,6 +17,11 @@ import (
 func main() {
 	templateCache, _ := buildTemplateCache()
 	ctrl.Setup(templateCache)
+
+	  // Serve static files from the "res" directory
+	  fs := http.FileServer(http.Dir("res"))
+	  http.Handle("/res/", http.StripPrefix("/res/", fs))
+  
 
 	go http.ListenAndServe(":3000", nil)
 
@@ -76,6 +81,7 @@ func buildTemplateCache() (*template.Template, bool) {
 
 	if needUpdate {
 		log.Print("Template change detected, updating...")
+		tc = template.Must(template.New("").Funcs(ctrl.TemplateFuncs).ParseFiles(fileNames...))
 		log.Println("Template update complete")
 	}
 
